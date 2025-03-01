@@ -6,6 +6,7 @@ import (
         "os"
         "strconv"
         "strings"
+        "errors"
 )
 
 
@@ -105,7 +106,57 @@ func evaluate(exp string) (float64, error) {
                 return math.Tan(rad), nil
 
 
+        } else if strings.HasPrefix(exp, "cot(") && strings.HasSuffix(exp, ")") {
+                valStr := exp[4 : len(exp)-1]
+                val, err := strconv.ParseFloat(valStr, 64)
 
+                if err != nil {
+                        return 0, err
+                }
+
+                rad := val * (math.Pi / 180)
+                tanValue := math.Tan(rad)
+
+                if tanValue == 0 {
+                        return 0, errors.New("cot is undefined for this input")
+                }
+                return 1 / tanValue, nil       
+
+
+        } else if strings.HasPrefix(exp, "sec(") && strings.HasSuffix(exp, ")") {
+                valStr := exp[4 : len(exp)-1]
+                val, err := strconv.ParseFloat(valStr, 64)
+
+                if err != nil {
+                        return 0, err
+                }
+
+                rad := val * (math.Pi / 180)
+                cosValue := math.Cos(rad)
+
+                if cosValue == 0 {
+                        return 0, errors.New("sec is undefined for this input")
+                }
+                return 1 / cosValue, nil
+
+
+        } else if strings.HasPrefix(exp, "csc(") && strings.HasSuffix(exp, ")") {
+                valStr := exp[4 : len(exp)-1]
+                val, err := strconv.ParseFloat(valStr, 64)
+
+                if err != nil {
+                        return 0, err
+                }
+
+                rad := val * (math.Pi / 180)
+                sinValue := math.Sin(rad)
+
+                if sinValue == 0 {
+                        return 0, errors.New("cosec is undefined for this input")
+                }
+                return 1 / sinValue, nil
+
+                
         } else if strings.HasPrefix(exp, "sqrt(") && strings.HasSuffix(exp, ")") {
                 valStr := exp[5 : len(exp)-1]
                 val, err := strconv.ParseFloat(valStr, 64)
