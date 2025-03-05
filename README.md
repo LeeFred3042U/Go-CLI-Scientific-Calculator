@@ -13,7 +13,7 @@ This is a command-line interface (CLI) scientific calculator built with Go. It h
 
 1. **Compile the Code:**  
    ```bash
-   go build calculator.go
+   go run calculator.go
 2. **Enter Expression:**
 -   Arithmetic: 2 + 3, 4 * 5, 10 / 2
 -   Exponents: 2 ^ 3
