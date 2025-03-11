@@ -75,15 +75,24 @@ func evaluate(exp string) (float64, error) {
         // Scientific Calculator 
 
         if strings.HasPrefix(exp, "sin(") && strings.HasSuffix(exp, ")") {
-        valStr := exp[4 : len(exp)-1]
-        val, err := strconv.ParseFloat(valStr, 64)
-                if err != nil {
-                        return 0, err
-                }
-                
-                //Since we taking values in degree we have to convert it into radian
-                rad := val * (math.Pi/180) 
-                return math.Sin(rad), nil
+    	valStr := exp[4 : len(exp)-1]
+    	val, err := strconv.ParseFloat(valStr, 64)
+    	if err != nil {
+        	return 0, err
+    }
+
+   	 // Convert degrees to radians
+   	 rad := val * (math.Pi / 180)
+    	result := math.Sin(rad)
+
+    	// Handle floating-point precision issues
+    	if math.Abs(result) < 1e-10 {
+        	result = 0
+    }
+
+    return result, nil
+}
+
 	
 
         } else if strings.HasPrefix(exp, "cos(") && strings.HasSuffix(exp, ")") {
