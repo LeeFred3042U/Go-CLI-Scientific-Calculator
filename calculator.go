@@ -18,11 +18,7 @@ func main() {
 	fmt.Println("Enter expressions (e.g., 2 + 3, sin(30), sqrt(16), etc.) or 'exit' to quit:")
 	fmt.Println("Type 'toggle' to switch between degrees and radians.")
 
-	
 	reader := bufio.NewReader(os.Stdin)
-	input, _ := reader.ReadString('\n')
-	input = strings.TrimSpace(input)
-
 
 	for {
 	
